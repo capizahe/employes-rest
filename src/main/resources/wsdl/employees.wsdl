@@ -1,0 +1,83 @@
+<wsdl:definitions
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:sch="http://www.parameta.com/webservices/employe"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="http://www.parameta.com/webservices/employe"
+	targetNamespace="http://www.parameta.com/webservices/employe">
+	<wsdl:types>
+		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+			elementFormDefault="qualified"
+			targetNamespace="http://www.parameta.com/webservices/employe">
+			<xs:element name="addEmployeeRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="employee" type="tns:employee" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="addEmployeeResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="status" type="xs:boolean" />
+						<xs:element name="added_date" type="xs:date" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:complexType name="employee">
+				<xs:sequence>
+					<xs:element name="firstName" type="xs:string" />
+					<xs:element name="secondName" type="xs:string" />
+					<xs:element name="firstSurname" type="xs:string" />
+					<xs:element name="secondSurname" type="xs:string" />
+					<xs:element name="idType" type="xs:string" />
+					<xs:element name="idNumber" type="xs:string" />
+					<xs:element name="vinculationDate" type="xs:date" />
+					<xs:element name="birthDate" type="xs:date" />
+					<xs:element name="companyPosition" type="xs:string" />
+					<xs:element name="salary" type="xs:double" />
+				</xs:sequence>
+			</xs:complexType>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="addEmployeeRequest">
+		<wsdl:part element="tns:addEmployeeRequest"
+			name="addEmployeeRequest">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="addEmployeeResponse">
+		<wsdl:part element="tns:addEmployeeResponse"
+			name="addEmployeeResponse">
+		</wsdl:part>
+	</wsdl:message>
+	<wsdl:portType name="EmployeeService">
+		<wsdl:operation name="addEmployee">
+			<wsdl:input message="tns:addEmployeeRequest"
+				name="addEmployeeRequest">
+			</wsdl:input>
+			<wsdl:output message="tns:addEmployeeResponse"
+				name="addEmployeeResponse">
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="EmployeeServiceSoap11"
+		type="tns:EmployeeService">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="addEmployee">
+			<soap:operation soapAction="" />
+			<wsdl:input name="addEmployeeRequest">
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="addEmployeeResponse">
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="EmployeeServiceService">
+		<wsdl:port binding="tns:EmployeeServiceSoap11"
+			name="EmployeeServiceSoap11">
+			<soap:address
+				location="http://localhost:8080/webservice" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
